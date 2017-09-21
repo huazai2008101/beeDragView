@@ -1,0 +1,48 @@
+<form class="form-horizontal" role="form" onsubmit="return doAddPanel()">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加DragPanel数据</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="width" class="col-sm-4 control-label">宽度：</label>
+                    <div class="col-sm-8">
+                        <input id="width" name="width" class="form-control" readonly placeholder="大小宽度" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="height" class="col-sm-4 control-label">高度：</label>
+                    <div class="col-sm-8">
+                        <input id="height" name="height" class="form-control" readonly placeholder="大小高度" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="x" class="col-sm-4 control-label">X偏移量：</label>
+                    <div class="col-sm-8">
+                        <input id="x" name="x" class="form-control" readonly placeholder="位置X偏移量" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="y" class="col-sm-4 control-label">Y偏移量：</label>
+                    <div class="col-sm-8">
+                        <input id="y" name="y" class="form-control" readonly placeholder="位置Y偏移量" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="id" id="id">
+        <input type="hidden" name="locked" id="locked">
+        <input type="hidden" name="image" id="image">
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">确定</button>
+    </div>
+</form>

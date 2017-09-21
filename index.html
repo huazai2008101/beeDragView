@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架，让web开发更迅速、简单。">
+    <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
+
+    <title>grid-stack-demo</title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="grid-stack/gridstack.min.css" rel="stylesheet">
+    <link href="css/beeDragView.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<p></p>
+<div class="container" style="min-width: 960px">
+    <a href="javascript:addPanel()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 新增</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="javascript:saveLayout()" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> 保存</a>
+    <p></p>
+    <div class="grid-stack-container">
+        <div class="grid-stack">
+
+        </div>
+    </div>
+</div>
+<p></p>
+
+<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="selectDataModal" data-backdrop="static" tabindex="0" role="dialog" aria-labelledby="selectDataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">选择XXX数据</h4>
+            </div>
+            <div class="embed-responsive" style="height: 600px">
+                <iframe class="embed-responsive-item" src="http://192.168.52.15/launcherExt/admin/checklistSubjects.action"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/lodash.min.js"></script>
+<script src="grid-stack/gridstack.js"></script>
+<script src="grid-stack/gridstack.jQueryUI.min.js"></script>
+<script src="js/beeDragView.js"></script>
+<script>
+    var beeDragView=null;
+    $(function () {
+        var param={
+            width:6,
+            height:2,
+            data:[
+                {
+                    "id": 12,
+                    "areaId": 2,
+                    "title": "电影",
+                    "description": "最好看的电影在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/a04cc1286ca941a8.webp",
+                    "row": 0,
+                    "column": 0,
+                    "rowSize": 2,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "3"
+                },
+                {
+                    "id": 13,
+                    "areaId": 2,
+                    "title": "电视剧",
+                    "description": "最常看的电视剧在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/5968fb20efb444fa.webp",
+                    "row": 0,
+                    "column": 1,
+                    "rowSize": 2,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "1"
+                },
+                {
+                    "id": 14,
+                    "areaId": 2,
+                    "title": "综艺",
+                    "description": "最搞笑的节目在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/81171d91fa454cb0.webp",
+                    "row": 0,
+                    "column": 2,
+                    "rowSize": 2,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "4"
+                },
+                {
+                    "id": 15,
+                    "areaId": 2,
+                    "title": "动漫",
+                    "description": "最童真的节目在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/2a653e844c6c41d3.webp",
+                    "row": 0,
+                    "column": 3,
+                    "rowSize": 2,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "2"
+                },
+                {
+                    "id": 16,
+                    "areaId": 2,
+                    "title": "少儿",
+                    "description": "最萌的画面在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/f77cbfd0e82c406f.webp",
+                    "row": 0,
+                    "column": 4,
+                    "rowSize": 1,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "13"
+                },
+                {
+                    "id": 17,
+                    "areaId": 2,
+                    "title": "音乐",
+                    "description": "最动人的声音在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/0bdf9722d0c147fb.webp",
+                    "row": 1,
+                    "column": 4,
+                    "rowSize": 1,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "6"
+                },
+                {
+                    "id": 18,
+                    "areaId": 2,
+                    "title": "纪录片",
+                    "description": "最珍贵的视频在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/d46415b06e9f4359.webp",
+                    "row": 0,
+                    "column": 5,
+                    "rowSize": 1,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "5"
+                },
+                {
+                    "id": 19,
+                    "areaId": 2,
+                    "title": "体育",
+                    "description": "最精彩的赛事在这里",
+                    "imgUrl": "http://localhost/file/pic?name=2017/201702/c3f92363b6724073.webp",
+                    "row": 1,
+                    "column": 5,
+                    "rowSize": 1,
+                    "columnSize": 1,
+                    "contentType": 2,
+                    "actionType": "intent",
+                    "actionData": "",
+                    "actionActivity": "",
+                    "actionValue": "com.skyworthdigital.skyallmedia.ChannelList",
+                    "paramkey": "chnid",
+                    "paramval": "10"
+                }
+            ]
+        };
+        beeDragView=$('.grid-stack').beeDragView(param);
+    });
+
+    function addPanel() {
+        $.get("addModalView.html",function (data,status) {
+           if(status=="success"){
+               $("#myModal .modal-content").html(data);
+               $("#myModal").modal("show");
+           }
+        });
+    }
+    
+    function doAddPanel() {
+        var width=$("#width").val();
+        if(!width.isInt()){
+            alert("请给宽度输入有效数字！");
+            return false;
+        }
+        var height=$("#height").val();
+        if(!height.isInt()){
+            alert("请给高度输入有效数字！");
+            return false;
+        }
+        var x=$("#x").val();
+        if(!x.isInt()){
+            alert("请给X偏移量输入有效数字！");
+            return false;
+        }
+        var y=$("#y").val();
+        if(!y.isInt()){
+            alert("请给Y偏移量输入有效数字！");
+            return false;
+        }
+        if(!beeDragView.grid.isAreaEmpty(x,y,width,height)){
+            alert("该位置已经被占用，请修改位置！");
+            return false;
+        }
+        console.log(beeDragView.grid);
+        if(parseInt(x)+parseInt(width)>beeDragView.grid.opts.width||parseInt(y)+parseInt(height)>beeDragView.grid.opts.height){
+            alert("大小已经超过整体屏幕大小，请修改大小");
+            return false;
+        }
+        beeDragView.addWidget({
+            width:width,
+            height:height,
+            x:x,
+            y:y
+        });
+        console.log({
+                width:width,
+                height:height,
+                x:x,
+                y:y
+    });
+        $("#myModal").modal("hide");
+        return false;
+    }
+    function saveLayout() {
+        console.log(beeDragView);
+        if (!beeDragView.checkFillAll()){
+            alert("页面布局不完善！请修改后再保存");
+            return;
+        }
+        var layout=beeDragView.getLayout();
+        alert(JSON.stringify(layout));
+    }
+
+    function openAndSelectData() {
+        $("#selectDataModal").modal("show");
+    }
+</script>
+</body>
+</html>
